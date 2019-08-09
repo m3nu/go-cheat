@@ -10,10 +10,9 @@ remember.
 - `cheat` tries to install system-wide cheat sheets and [fails(https://github.com/cheat/cheat/issues/431)] without root permissions. `go-cheat` includes a [default set](https://github.com/cheat/cheat/tree/master/cheat/cheatsheets) of cheat sheets from `cheat` in the binary.
 
 ## Todo:
-- [ ] Add colored output using [Chroma](https://github.com/alecthomas/chroma)
-- [ ] Deal with `CHEAT_PATH` (single and multiple)
+- [ ] Implement search
 - [ ] Tests
-- [ ] Nicer release script and more architectures. RPM and DEB packages.
+- [ ] Nicer release script and more architectures
 
 ## Example
 The next time you're forced to disarm a nuclear weapon without consulting
@@ -88,6 +87,26 @@ export CHEAT_PATH="$CHEAT_PATH:/path/to/more/cheats"
 ```
 
 You may view which directories are on your `CHEAT_PATH` with `cheat -d`.
+
+
+### Enabling Syntax Highlighting ###
+`cheat` can optionally apply syntax highlighting to your cheatsheets. To
+enable syntax highlighting, export a `CHEAT_COLORS` environment variable:
+
+```sh
+export CHEAT_COLORS=true
+```
+
+Note that [pygments][] must be installed on your system for this to work.
+
+`cheat` ships with both light and dark colorschemes to support terminals with
+different background colors. A colorscheme may be selected via the
+`CHEAT_COLORSCHEME` envvar. Valid values can be found [here](https://xyproto.github.io/splash/docs/):
+
+```sh
+export CHEAT_COLORSCHEME=pygments
+```
+
 
 ## See Also:
 - [Enabling Command-line Autocompletion][autocompletion]

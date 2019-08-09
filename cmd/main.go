@@ -2,11 +2,15 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/alecthomas/chroma/formatters"
+	"github.com/alecthomas/chroma/lexers"
+	"github.com/alecthomas/chroma/styles"
 	"github.com/spf13/pflag"
 	"os"
 	"os/user"
 	"path"
 	"github.com/gobuffalo/packr/v2"
+	"strings"
 )
 
 var (
@@ -31,7 +35,9 @@ func Main() {
 	}
 
 	if listCheatFoldersFlag {
-		fmt.Println(cheatFolders)
+		for _, f := range cheatFolders {
+			fmt.Println(f.path)
+		}
 	}
 
 	if listCheatsFlag {
@@ -49,7 +55,11 @@ func Main() {
 		for _, f := range cheatFolders {
 			cheatStr, err := f.getCheatsheet(cmd)
 			if err == nil {
-				fmt.Println(cheatStr)
+				if os.Getenv("CHEAT_COLORS") == "true" {
+					printColoredCheatsheet(cheatStr)
+				} else {
+					fmt.Println(cheatStr)
+				}
 				os.Exit(0)
 			}
 		}
@@ -64,9 +74,6 @@ func Main() {
 		// At this point we didn't find any cheat sheet.
 		fmt.Println("No cheatsheet found for", cmd)
 	}
-
-
-
 }
 
 func init() {
@@ -94,8 +101,34 @@ func collectCheatFolders() []cheatfolder {
 		folders = append(folders, f)
 	}
 
-	// TODO: Deal with CHEAT_PATH
-	//cheatPath := os.Getenv("CHEAT_PATH")
+	// Add folders found in CHEAT_PATH
+	cheatPath := os.Getenv("CHEAT_PATH")
+	if cheatPath != "" {
+		for _, p := range strings.Split(cheatPath, ":") {
+			f, err := NewCheatFolder(p)
+			if err == nil {
+				folders = append(folders, f)
+			}
+		}
+	}
 
 	return folders
+}
+
+func printColoredCheatsheet(s string) {
+	colorscheme := os.Getenv("CHEAT_COLORSCHEME")
+	if colorscheme == "" {
+		colorscheme = "pygments"
+	}
+
+	style := styles.Get(colorscheme)
+	lexer := lexers.Get("bash")
+
+	formatter := formatters.Get("terminal256")
+	if formatter == nil {
+		formatter = formatters.Fallback
+	}
+
+	iterator, _ := lexer.Tokenise(nil, s)
+	formatter.Format(os.Stdout, style, iterator)
 }
