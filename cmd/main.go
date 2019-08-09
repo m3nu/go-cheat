@@ -9,24 +9,6 @@ import (
 	"github.com/gobuffalo/packr/v2"
 )
 
-/*
-Usage:
-  cheat <cheatsheet>
-  cheat -s <keyword>
-  cheat -l
-  cheat -d
-  cheat -v
-
-Options:
-  -d --directories  List directories on $CHEAT_PATH
-  -l --list         List cheatsheets
-  -s --search       Search cheatsheets for <keyword>
-  -v --version      Print the version number
-
-CHEAT_USER_DIR
-CHEAT_PATH
-*/
-
 var (
 	doSearchFlag string
 	listCheatsFlag bool
@@ -34,13 +16,13 @@ var (
 	printVersionFlag bool
 
 	cheatFolders []cheatfolder
+	version string
 )
 
 func Main() {
 	pflag.Parse()
 	cheatFolders = collectCheatFolders()
-	includedCheatsheets := packr.New("My Box", "../assets/cheatsheets")
-
+	includedCheatsheets := packr.New("Included cheatsheets", "../assets/cheatsheets")
 
 	// TODO: Validate CLI args
 
@@ -58,14 +40,29 @@ func Main() {
 		}
 	}
 
+	if printVersionFlag {
+		fmt.Println("Version: ", version)
+	}
+
 	if len(pflag.Args()) == 1 {
+		cmd := pflag.Args()[0]
 		for _, f := range cheatFolders {
-			cheatStr, err := f.getCheatsheet(pflag.Args()[0])
+			cheatStr, err := f.getCheatsheet(cmd)
 			if err == nil {
 				fmt.Println(cheatStr)
 				os.Exit(0)
 			}
 		}
+
+		// Try built-in cheatsheets
+		cheatStr, err := includedCheatsheets.FindString(cmd)
+		if err == nil {
+			fmt.Println(cheatStr)
+			os.Exit(0)
+		}
+
+		// At this point we didn't find any cheat sheet.
+		fmt.Println("No cheatsheet found for", cmd)
 	}
 
 

@@ -1,2 +1,4 @@
 go-cheat
 dist
+cmd/cmd-packr.go
+packrd/
