@@ -1,0 +1,16 @@
+name: "cheat"
+arch: "amd64"
+platform: "linux"
+version: "v${VERSION}"
+section: "default"
+priority: "extra"
+provides:
+- cheat
+maintainer: "Manuel Riel <hello@snapdragon.cc>"
+description: |
+  A Go implementation of Chris Allen Lane's cheat tool
+homepage: "https://github.com/m3nu/go-cheat"
+license: "MIT"
+bindir: "/usr/local/bin"
+files:
+  ./dist/cheat-linux-amd64: "/usr/local/bin/cheat"
