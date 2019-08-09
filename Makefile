@@ -13,7 +13,11 @@ build-all: packr2
 	env GOOS=linux GOARCH=amd64 go build -ldflags '-X vorta/ui.version=${VERSION}' -o dist/cheat-linux-amd64 cheat.go
 	upx dist/cheat-linux-amd64
 
-release:
+release: build-all
+	hub release create \
+		--attach=dist/cheat-linux-amd64 \
+		--attach=dist/cheat-darwin-amd64 \
+		${VERSION}
 
 build:
 	go build -ldflags '-X vorta/ui.version=${VERSION}' -o dist/cheat-go cheat.go
