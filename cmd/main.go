@@ -31,7 +31,9 @@ func Main() {
 	// TODO: Validate CLI args
 
 	if doSearchFlag != "" {
-		fmt.Println("Searching for", doSearchFlag)
+		for _, cheatFolder := range cheatFolders {
+			cheatFolder.search(doSearchFlag)
+		}
 	}
 
 	if listCheatFoldersFlag {

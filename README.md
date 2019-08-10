@@ -4,13 +4,12 @@ command-line. It was designed to help remind \*nix system administrators of
 options for commands that they use frequently, but not frequently enough to
 remember.
 
-`go-cheat` is a Go implementation of [Chris Allen Lane](https://github.com/chrisallenlane)'s great [`cheat`](https://github.com/cheat/cheat) Python package. It aims to be compatible with the Python version and solves those issues:
+`go-cheat` is a Go implementation of [Chris Allen Lane](https://github.com/chrisallenlane)'s great [`cheat`](https://github.com/cheat/cheat) Python package. It aims to be fully compatible with the Python version and solves those issues:
 
 - Many users don't maintain a Python installation and `pip` is often not available. `go-cheat` comes as a single binary for most architectures. See [releases](https://github.com/m3nu/go-cheat/releases).
 - `cheat` tries to install system-wide cheat sheets and [fails(https://github.com/cheat/cheat/issues/431)] without root permissions. `go-cheat` includes a [default set](https://github.com/cheat/cheat/tree/master/cheat/cheatsheets) of cheat sheets from `cheat` in the binary.
 
 ## Todo:
-- [ ] Implement search
 - [ ] Tests
 - [ ] Nicer release script and more architectures
 
