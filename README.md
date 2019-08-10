@@ -49,7 +49,13 @@ to store notes on your favorite cookie recipes, feel free.
 
 
 ## Installing
-Download the binary release for your platform from the [Releases](https://github.com/m3nu/go-cheat/releases).
+Download the binary release or package (`rpm`/`deb`) for your platform from [Releases](https://github.com/m3nu/go-cheat/releases).
+
+To install the `.deb`:
+`$ apt install ./cheat-*.deb`
+
+Or the `.rpm`:
+`$ yum localinstall ./cheat-*.rpm`
 
 ## Modifying Cheatsheets
 The value of `cheat` is that it allows you to create your own cheatsheets - the
@@ -96,8 +102,6 @@ enable syntax highlighting, export a `CHEAT_COLORS` environment variable:
 ```sh
 export CHEAT_COLORS=true
 ```
-
-Note that [pygments][] must be installed on your system for this to work.
 
 `cheat` ships with both light and dark colorschemes to support terminals with
 different background colors. A colorscheme may be selected via the

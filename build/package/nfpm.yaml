@@ -1,7 +1,7 @@
 name: "cheat"
 arch: "amd64"
 platform: "linux"
-version: "v${VERSION}"
+version: "${VERSION}"
 section: "default"
 priority: "extra"
 provides:
@@ -13,4 +13,4 @@ homepage: "https://github.com/m3nu/go-cheat"
 license: "MIT"
 bindir: "/usr/local/bin"
 files:
-  ./dist/cheat-linux-amd64: "/usr/local/bin/cheat"
+  ./dist/cheat-linux: "/usr/local/bin/cheat"
