@@ -1,4 +1,7 @@
-# go-cheat
+# go-cheat (depreceated)
+**The original `cheat` was rewritten in Go and has many more features than this projects. Recommend to use that. See also [this issue](https://github.com/cheat/cheat/issues/470) or the [main project page](https://github.com/cheat/cheat)**
+
+
 `go-cheat` allows you to create and view interactive cheatsheets on the
 command-line. It was designed to help remind \*nix system administrators of
 options for commands that they use frequently, but not frequently enough to
